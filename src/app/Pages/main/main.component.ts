@@ -63,6 +63,10 @@ export class MainComponent implements OnInit {
     });
 
     this.getDefinition(this.searchForm);
+    this.api.getCurrrentWord().subscribe((word) => {
+      this.searchForm = word;
+      this.getDefinition(this.searchForm);
+    });
   }
 
   handleToggleMenuPPolice() {

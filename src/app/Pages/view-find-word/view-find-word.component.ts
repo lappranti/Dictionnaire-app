@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/shared/api.service';
 import { ThemeService } from 'src/app/shared/theme.service';
 
 @Component({
@@ -22,16 +23,15 @@ export class ViewFindWordComponent implements OnInit {
   btnPlay!: any;
   currentTheme!: string;
 
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit() {
     this.themeService
       .getTheme()
       .subscribe((theme) => (this.currentTheme = theme));
-    if (localStorage.getItem('dataThemePolice')) {
-      this.themeSelected = localStorage.getItem('dataThemePolice');
-      this.themeSelected = JSON.parse(this.themeSelected);
-    }
 
     this.audio = document.getElementById('myAudio');
     this.btnPlay = document.getElementById('btnPlay');
@@ -45,6 +45,11 @@ export class ViewFindWordComponent implements OnInit {
       }
     });
     return audioUrl;
+  }
+
+  searchWord(word: string) {
+    console.log(word);
+    this.apiService.updateCurrentWord(word);
   }
 
   startPlayer() {

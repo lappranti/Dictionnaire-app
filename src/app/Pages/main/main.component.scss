@@ -1,6 +1,7 @@
 @import "../../../assets/utils/variables";
 
 .container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
 
@@ -255,6 +256,10 @@
 
       .textTitle {
         color: $light-1;
+      }
+
+      a {
+        word-break: break-all;
       }
     }
   }

@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="word" *ngIf="index == 0">
+    <div class="top">
+      <h1 [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt">
+        {{ findDefinition.word | titlecase }}
+      </h1>
+      <img [src]="iconPlayAudio" alt="" id="btnPlay" (click)="startPlayer()" />
+    </div>
+    <span class="phonetique">{{ findDefinition.phonetic }}</span>
+  </div>
+  <div class="definitions" *ngFor="let meaning of findDefinition.meanings">
+    <div class="partOfSpeechContainer">
+      <span
+        class="partOfSpeech"
+        [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
+        >{{ meaning.partOfSpeech | titlecase }}</span
+      >
+      <span class="separateur"></span>
+    </div>
+    <div class="definition">
+      <span> Meaining </span>
+      <ul>
+        <li
+          *ngFor="let definition of meaning.definitions"
+          [style.color]="themeSelected === 'dark' ? '#FFFFFF' : '#2D2D2D'"
+        >
+          {{ definition.definition }}
+        </li>
+      </ul>
+    </div>
+    <div class="synonyms" *ngIf="meaning.synonyms.length != 0">
+      <span class="title">Synonyms</span>
+      <span class="word-synonym-container">
+        <span *ngFor="let syn of meaning.synonyms; let index = index">
+          <span *ngIf="index != 0">,</span> {{ syn }}
+        </span>
+      </span>
+    </div>
+    <div class="antonyms" *ngIf="meaning.antonyms.length != 0">
+      <span class="title">Antonyms</span>
+      <span class="word-synonym-container">
+        <span *ngFor="let ant of meaning.antonyms; let index = index">
+          <span *ngIf="index != 0">,</span> {{ ant }}</span
+        >
+      </span>
+    </div>
+  </div>
+</div>

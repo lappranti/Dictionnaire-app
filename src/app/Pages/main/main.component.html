@@ -1,0 +1,105 @@
+<div
+  class="container"
+  [class]="themeSelected === 'dark' ? 'dark' : 'light'"
+  [style.font-family]="selectedPolice"
+>
+  <div class="main-content">
+    <div class="main-content__header">
+      <div class="topHeader">
+        <div class="topHeader__logo">
+          <img [src]="imgLogo" alt="image logo" />
+        </div>
+        <div class="topHeader__police-theme">
+          <div class="menu-police">
+            <span class="current-police" (click)="handleToggleMenuPPolice()">
+              <span
+                class="text"
+                [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
+                >{{ selectedPolice.police }}</span
+              >
+              <img [src]="iconArrowDown" alt="arrow-down" />
+            </span>
+            <ul
+              class="polices"
+              *ngIf="menuPolice"
+              [style.background]=""
+              [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
+              [style.background-color]="
+                themeSelected === 'dark' ? '#1F1F1F' : lightBg
+              "
+              [style.box-shadow]="
+                themeSelected === 'dark' ? darkBoxShadow : lightBoxShadow
+              "
+            >
+              <li
+                class="polices__item"
+                id="{{ item.name }}"
+                *ngFor="let item of listPolice"
+                (click)="handleSelectPolice(item)"
+              >
+                {{ item.police }}
+              </li>
+            </ul>
+          </div>
+          <span class="separateur"></span>
+          <div class="theme">
+            <div class="theme__btn-container" (click)="handleToggleTheme()">
+              <div
+                class="theme-btn"
+                [class]="themeSelected === 'dark' ? 'right' : 'left'"
+              ></div>
+            </div>
+            <img [src]="iconMoon" alt="" />
+          </div>
+        </div>
+      </div>
+      <form
+        class="battomHeader"
+        [formGroup]="searchForm"
+        (ngSubmit)="handleSubmitSearch()"
+      >
+        <div class="form-group">
+          <input
+            type="text"
+            repuired
+            formControlName="inputValue"
+            [style.background-color]="
+              themeSelected === 'dark' ? '#1F1F1F' : '#F4F4F4'
+            "
+            [style.border-color]="
+              themeSelected === 'dark' ? '#1F1F1F' : '#F4F4F4'
+            "
+            [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
+          />
+          <button type="submit">
+            <img [src]="iconBtnSearch" alt="icon-moon" />
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="main-content__section" *ngIf="listDefinition != null">
+      <div class="meaningsList">
+        <app-view-find-word
+          *ngFor="let definition of listDefinition; let index = index"
+          [findDefinition]="definition"
+          [index]="index"
+        ></app-view-find-word>
+      </div>
+      <div class="separateurInterMeaning">
+        <span></span>
+      </div>
+      <div class="sources-url">
+        <span class="textTitle">Source</span>
+        <a
+          [href]="listDefinition[0].sourceUrls"
+          class="url"
+          [style.color]="themeSelected === 'dark' ? lightTxt : '#2D2D2D'"
+          >{{ listDefinition[0].sourceUrls }}</a
+        >
+      </div>
+    </div>
+    <div *ngIf="listDefinition === null">
+      <app-not-found [theme]="themeSelected"></app-not-found>
+    </div>
+  </div>
+</div>

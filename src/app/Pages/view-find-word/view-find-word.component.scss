@@ -1,0 +1,160 @@
+@import "../../../assets/utils/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: toRem(40);
+
+  .word {
+    display: flex;
+    flex-direction: column;
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h1 {
+        font-size: $font-size-hl;
+        line-height: $line-height-hl;
+        font-weight: 700;
+      }
+
+      img {
+        cursor: pointer;
+      }
+    }
+
+    .phonetique {
+      font-weight: 400;
+      font-size: $font-size-hm;
+      line-height: $line-height-hm;
+
+      color: $active;
+    }
+
+    @media only screen and (max-width: 327px) {
+      .top {
+        h1 {
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 39px;
+        }
+      }
+      .phonetique {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  //Le container de la liste des definition possible
+
+  .definitions {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .partOfSpeechContainer {
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+
+      .partOfSpeech {
+        font-weight: 700;
+        font-size: $font-size-hm;
+        line-height: $line-height-hm;
+      }
+
+      .separateur {
+        display: block;
+        width: 100%;
+        border: 1px solid $light-2;
+      }
+    }
+    .definition {
+      display: flex;
+      flex-direction: column;
+      row-gap: 25px;
+      font-weight: 400;
+
+      span {
+        font-size: $font-size-hs;
+        line-height: $line-height-hs;
+        color: $light-1;
+      }
+
+      ul {
+        padding-left: 40px;
+        font-size: $font-size-bm;
+        line-height: $line-height-bm;
+      }
+    }
+
+    .synonyms,
+    .antonyms {
+      display: flex;
+      column-gap: 22px;
+
+      .word-synonym-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        column-gap: 8px;
+
+        span {
+          font-weight: 700;
+          font-size: $font-size-hm;
+          line-height: $line-height-hm;
+
+          color: $active;
+        }
+      }
+    }
+
+    .title {
+      font-size: $font-size-hm;
+      line-height: $line-height-hm;
+      font-weight: 400;
+
+      color: $light-1;
+    }
+
+    @media only screen and (max-width: 327px) {
+      gap: 32px;
+
+      .partOfSpeechContainer {
+        .partOfSpeech {
+          font-size: 18px;
+          line-height: 22px;
+        }
+      }
+
+      .definition {
+        row-gap: 17px;
+
+        span {
+          font-size: 16px;
+          line-height: 19px;
+        }
+
+        ul {
+          font-size: 15px;
+          line-height: 24px;
+        }
+      }
+
+      .synonyms,
+      .antonyms {
+        column-gap: 15px;
+
+        .word-synonym-container {
+          span {
+            font-size: 16px;
+            line-height: 19px;
+          }
+        }
+      }
+    }
+  }
+}

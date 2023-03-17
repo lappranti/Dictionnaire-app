@@ -1,0 +1,23 @@
+@import "../../../assets/utils/variables";
+
+.container-page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: toRem(calc(132 - 73));
+
+  .title {
+    margin: toRem(44) 0 toRem(24);
+    font-weight: 700;
+    font-size: $font-size-bs;
+    line-height: $line-height-hs;
+  }
+
+  p {
+    text-align: center;
+    font-weight: 400;
+    font-size: $font-size-bm;
+    line-height: $line-height-bm;
+  }
+}

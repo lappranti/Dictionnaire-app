@@ -1,6 +1,6 @@
 <div
   class="container"
-  [class]="themeSelected === 'dark' ? 'dark' : 'light'"
+  [class]="currentTheme === 'dark' ? 'dark' : 'light'"
   [style.font-family]="selectedPolice"
 >
   <div class="main-content">
@@ -14,7 +14,7 @@
             <span class="current-police" (click)="handleToggleMenuPPolice()">
               <span
                 class="text"
-                [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
+                [style.color]="currentTheme === 'dark' ? lightTxt : darkTxt"
                 >{{ selectedPolice.police }}</span
               >
               <img [src]="iconArrowDown" alt="arrow-down" />
@@ -23,12 +23,12 @@
               class="polices"
               *ngIf="menuPolice"
               [style.background]=""
-              [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
+              [style.color]="currentTheme === 'dark' ? lightTxt : darkTxt"
               [style.background-color]="
-                themeSelected === 'dark' ? '#1F1F1F' : lightBg
+                currentTheme === 'dark' ? '#1F1F1F' : lightBg
               "
               [style.box-shadow]="
-                themeSelected === 'dark' ? darkBoxShadow : lightBoxShadow
+                currentTheme === 'dark' ? darkBoxShadow : lightBoxShadow
               "
             >
               <li
@@ -46,36 +46,31 @@
             <div class="theme__btn-container" (click)="handleToggleTheme()">
               <div
                 class="theme-btn"
-                [class]="themeSelected === 'dark' ? 'right' : 'left'"
+                [class]="currentTheme === 'dark' ? 'right' : 'left'"
               ></div>
             </div>
             <img [src]="iconMoon" alt="" />
           </div>
         </div>
       </div>
-      <form
-        class="battomHeader"
-        [formGroup]="searchForm"
-        (ngSubmit)="handleSubmitSearch()"
-      >
-        <div class="form-group">
-          <input
-            type="text"
-            repuired
-            formControlName="inputValue"
-            [style.background-color]="
-              themeSelected === 'dark' ? '#1F1F1F' : '#F4F4F4'
-            "
-            [style.border-color]="
-              themeSelected === 'dark' ? '#1F1F1F' : '#F4F4F4'
-            "
-            [style.color]="themeSelected === 'dark' ? lightTxt : darkTxt"
-          />
-          <button type="submit">
-            <img [src]="iconBtnSearch" alt="icon-moon" />
-          </button>
-        </div>
-      </form>
+
+      <div class="form-group battomHeader">
+        <input
+          type="text"
+          name="wordk"
+          [(ngModel)]="searchForm"
+          ngModel=""
+          #input
+          [style.background-color]="
+            currentTheme === 'dark' ? '#1F1F1F' : '#F4F4F4'
+          "
+          [style.border-color]="currentTheme === 'dark' ? '#1F1F1F' : '#F4F4F4'"
+          [style.color]="currentTheme === 'dark' ? lightTxt : darkTxt"
+        />
+        <button type="submit" (click)="onSearch(input)">
+          <img [src]="iconBtnSearch" alt="icon-moon" />
+        </button>
+      </div>
     </div>
     <div class="main-content__section" *ngIf="listDefinition != null">
       <div class="meaningsList">
@@ -93,13 +88,13 @@
         <a
           [href]="listDefinition[0].sourceUrls"
           class="url"
-          [style.color]="themeSelected === 'dark' ? lightTxt : '#2D2D2D'"
+          [style.color]="currentTheme === 'dark' ? lightTxt : '#2D2D2D'"
           >{{ listDefinition[0].sourceUrls }}</a
         >
       </div>
     </div>
     <div *ngIf="listDefinition === null">
-      <app-not-found [theme]="themeSelected"></app-not-found>
+      <app-not-found></app-not-found>
     </div>
   </div>
 </div>

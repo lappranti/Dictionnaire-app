@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { elementAt } from 'rxjs';
-import { ApiService } from 'src/app/service/api.service';
+import { ApiService } from 'src/app/shared/api.service';
+import { FontService } from 'src/app/shared/police.service';
+import { ThemeService } from 'src/app/shared/theme.service';
 
 @Component({
   selector: 'app-main',
@@ -14,17 +15,19 @@ export class MainComponent implements OnInit {
     { police: 'Serif', name: 'serif' },
     { police: 'Mono', name: 'monospace' },
   ];
-  selectedPolice: any = { police: 'Sans Serif', name: 'sans-serif' };
 
-  imgLogo: string = '../../../assets/images/logo.svg';
-  iconBtnSearch: string = '../../../assets/images/icon-search.svg';
-  iconMoon: string = '../../../assets/images/icon-moon.svg';
-  iconArrowDown: string = '../../../assets/images/icon-arrow-down.svg';
-  iconPlayAudio: string = '../../../assets/images/icon-play.svg';
+  imgLogo: string = '/assets/images/logo.svg';
+  iconBtnSearch: string = '/assets/images/icon-search.svg';
+  iconMoon: string = '/assets/images/icon-moon.svg';
+  iconArrowDown: string = '/assets/images/icon-arrow-down.svg';
+  iconPlayAudio: string = '/assets/images/icon-play.svg';
 
-  menuPolice!: boolean;
+  menuPolice: boolean = false;
   themeSelected!: string;
   policeSelected!: string;
+
+  currentTheme!: string;
+  selectedPolice!: any;
 
   darkBg: string = '#050505';
   lightBg: string = '#ffff';
@@ -36,45 +39,30 @@ export class MainComponent implements OnInit {
   darkBoxShadow: string = '0px 5px 30px #A445ED';
 
   listDefinition!: any;
-  searchForm!: FormGroup;
-
-  dataThemePolice!: any;
+  searchForm: string = 'mean';
 
   constructor(
     private formbuilder: FormBuilder,
-    private serviceApi: ApiService
+    private api: ApiService,
+    private themeService: ThemeService,
+    private policeService: FontService
   ) {}
 
   ngOnInit(): void {
-    this.getLocalStoradgeThemePolice();
-
-    this.menuPolice = false;
-
-    this.serviceApi.getDefinition('Mean').subscribe({
-      next: (res: any) => {
-        this.listDefinition = res;
-        //console.log(this.listDefinition);
-      },
-      error: () => {
-        this.listDefinition = null;
-      },
+    this.themeService.getTheme().subscribe((theme) => {
+      this.currentTheme = theme;
+      console.log(this.currentTheme);
     });
 
-    this.searchForm = this.formbuilder.group({
-      inputValue: this.formbuilder.control('Mean'),
+    this.policeService.getCurrentFont().subscribe((font) => {
+      this.listPolice.forEach((el) => {
+        if (el.police == font) {
+          this.selectedPolice = el;
+        }
+      });
     });
-  }
 
-  handleSubmitSearch() {
-    let word = this.searchForm.value.inputValue;
-    this.serviceApi.getDefinition(word).subscribe({
-      next: (resp: any) => {
-        this.listDefinition = resp;
-      },
-      error: (err) => {
-        this.listDefinition = null;
-      },
-    });
+    this.getDefinition(this.searchForm);
   }
 
   handleToggleMenuPPolice() {
@@ -83,43 +71,31 @@ export class MainComponent implements OnInit {
 
   handleSelectPolice(police: any) {
     this.selectedPolice = police;
-    this.menuPolice = !this.menuPolice;
+    this.handleToggleMenuPPolice();
 
-    //console.log(police);
-
-    this.dataThemePolice.police = police.name;
-    this.updateLocalStoradgeThemePolice();
+    this.policeService.setFont(this.selectedPolice.police);
   }
 
   handleToggleTheme() {
-    this.themeSelected = this.themeSelected === 'dark' ? 'light' : 'dark';
-    this.dataThemePolice.theme = this.themeSelected;
-    this.updateLocalStoradgeThemePolice();
+    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    this.themeService.setTheme(this.currentTheme);
   }
 
-  updateLocalStoradgeThemePolice() {
-    localStorage.setItem(
-      'dataThemePolice',
-      JSON.stringify(this.dataThemePolice)
-    );
-
-    this.themeSelected = this.dataThemePolice.theme;
-    this.policeSelected = this.dataThemePolice.police;
+  onSearch(input: HTMLInputElement) {
+    console.log(input.value);
+    this.searchForm = input.value;
+    this.getDefinition(this.searchForm);
   }
 
-  getLocalStoradgeThemePolice() {
-    if (localStorage.getItem('dataThemePolice')) {
-      this.dataThemePolice = localStorage.getItem('dataThemePolice');
-    } else {
-      localStorage.setItem(
-        'dataThemePolice',
-        JSON.stringify({ theme: 'light', police: 'sans-serif' })
-      );
-      this.dataThemePolice = localStorage.getItem('dataThemePolice');
-    }
-
-    this.dataThemePolice = JSON.parse(this.dataThemePolice);
-    this.themeSelected = this.dataThemePolice.theme;
-    this.policeSelected = this.dataThemePolice.police;
+  getDefinition(word: string) {
+    this.api.getDefinition(word).subscribe({
+      next: (res: any) => {
+        this.listDefinition = res;
+        //console.log(this.listDefinition);
+      },
+      error: () => {
+        this.listDefinition = null;
+      },
+    });
   }
 }

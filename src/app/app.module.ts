@@ -6,7 +6,7 @@ import { MainComponent } from './Pages/main/main.component';
 import { ViewFindWordComponent } from './Pages/view-find-word/view-find-word.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ViewFindWordComponent,
     NotFoundComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule],
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

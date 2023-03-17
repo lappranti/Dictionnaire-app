@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ThemeService } from 'src/app/shared/theme.service';
 
 @Component({
   selector: 'app-view-find-word',
@@ -19,8 +20,14 @@ export class ViewFindWordComponent implements OnInit {
 
   audio!: any;
   btnPlay!: any;
+  currentTheme!: string;
+
+  constructor(private themeService: ThemeService) {}
 
   ngOnInit() {
+    this.themeService
+      .getTheme()
+      .subscribe((theme) => (this.currentTheme = theme));
     if (localStorage.getItem('dataThemePolice')) {
       this.themeSelected = localStorage.getItem('dataThemePolice');
       this.themeSelected = JSON.parse(this.themeSelected);

@@ -88,27 +88,26 @@
         padding-left: 40px;
         font-size: $font-size-bm;
         line-height: $line-height-bm;
+
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
     }
 
     .synonyms,
     .antonyms {
       display: flex;
-      column-gap: 22px;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
 
-      .word-synonym-container {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        column-gap: 8px;
-
-        span {
-          font-weight: 700;
-          font-size: $font-size-hm;
-          line-height: $line-height-hm;
-
-          color: $active;
-        }
+      .syn,
+      .ant {
+        font-weight: 600;
+        font-size: $font-size-hm;
+        line-height: $line-height-hm;
+        color: $active;
       }
     }
 
@@ -120,7 +119,7 @@
       color: $light-1;
     }
 
-    @media only screen and (max-width: 327px) {
+    @media only screen and (max-width: 400px) {
       gap: 32px;
 
       .partOfSpeechContainer {
@@ -146,13 +145,12 @@
 
       .synonyms,
       .antonyms {
-        column-gap: 15px;
+        gap: 8px;
 
-        .word-synonym-container {
-          span {
-            font-size: 16px;
-            line-height: 19px;
-          }
+        .ant,
+        .syn {
+          font-size: 16px;
+          line-height: 19px;
         }
       }
     }

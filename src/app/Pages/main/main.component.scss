@@ -4,6 +4,9 @@
   display: flex;
   justify-content: center;
 
+  @media only screen and (max-width: 400px) {
+    padding: 1rem;
+  }
   padding-top: toRem(58);
   opacity: 0.3;
 

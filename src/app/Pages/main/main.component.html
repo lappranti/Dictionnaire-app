@@ -7,7 +7,7 @@
     <div class="main-content__header">
       <div class="topHeader">
         <div class="topHeader__logo">
-          <img [src]="imgLogo" alt="image logo" />
+          <i class="bi bi-book"></i>
         </div>
         <div class="topHeader__police-theme">
           <div class="menu-police">
@@ -17,7 +17,7 @@
                 [style.color]="currentTheme === 'dark' ? lightTxt : darkTxt"
                 >{{ selectedPolice.police }}</span
               >
-              <img [src]="iconArrowDown" alt="arrow-down" />
+              <i class="bi bi-chevron-down"></i>
             </span>
             <ul
               class="polices"
@@ -43,13 +43,14 @@
           </div>
           <span class="separateur"></span>
           <div class="theme">
+            <i class="bi bi-sun"></i>
             <div class="theme__btn-container" (click)="handleToggleTheme()">
               <div
                 class="theme-btn"
                 [class]="currentTheme === 'dark' ? 'right' : 'left'"
               ></div>
             </div>
-            <img [src]="iconMoon" alt="" />
+            <i class="bi bi-moon"></i>
           </div>
         </div>
       </div>
@@ -68,7 +69,7 @@
           [style.color]="currentTheme === 'dark' ? lightTxt : darkTxt"
         />
         <button type="submit" (click)="onSearch(input)">
-          <img [src]="iconBtnSearch" alt="icon-moon" />
+          <i class="bi bi-search"></i>
         </button>
       </div>
     </div>

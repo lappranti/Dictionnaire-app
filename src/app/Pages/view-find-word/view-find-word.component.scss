@@ -23,9 +23,12 @@
         word-break: break-all;
       }
 
-      img {
+      i {
         margin-top: 8px;
         cursor: pointer;
+
+        color: $active;
+        font-size: calc(24px + 5vw);
       }
     }
 

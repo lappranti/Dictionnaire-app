@@ -4,7 +4,7 @@
       <h1 [style.color]="currentTheme === 'dark' ? lightTxt : darkTxt">
         {{ findDefinition.word | titlecase }}
       </h1>
-      <img [src]="iconPlayAudio" alt="" id="btnPlay" (click)="startPlayer()" />
+      <i class="bi bi-play-circle-fill" id="btnPlay"></i>
     </div>
     <span class="phonetique">{{ findDefinition.phonetic }}</span>
   </div>

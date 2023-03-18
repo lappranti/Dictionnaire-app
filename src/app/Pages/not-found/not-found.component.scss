@@ -20,4 +20,9 @@
     font-size: $font-size-bm;
     line-height: $line-height-bm;
   }
+
+  i {
+    font-size: calc(60px + 8vw);
+    color: $danger;
+  }
 }
